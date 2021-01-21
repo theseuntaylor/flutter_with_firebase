@@ -8,10 +8,11 @@ class User {
   String imageURL;
 
   User(
-      this.fullName,
-      this.email,
-      this.phoneNumber,
-      {this.imageURL,
+      {
+        @required this.fullName,
+        @required this.email,
+        @required this.phoneNumber,
+        this.imageURL,
         this.firstName,
         this.lastName}
       );

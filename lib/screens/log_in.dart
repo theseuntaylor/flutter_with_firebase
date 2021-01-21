@@ -13,6 +13,7 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   bool _showPassword = false;
+  bool signInWithAnon = false;
   bool _isLoading = false;
   bool _isLoading2 = false;
   TextEditingController usernameTEC = TextEditingController();
@@ -63,7 +64,13 @@ class _LogInState extends State<LogIn> {
                                       controller: usernameTEC,
                                       autofocus: false,
                                       keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(hintText: "Email Address"),
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.orange
+                                              )
+                                          ),
+                                          labelText: "Email Address"),
                                     ),
                                   ),
                                   SizedBox(
@@ -83,7 +90,12 @@ class _LogInState extends State<LogIn> {
                                       obscureText: !_showPassword,
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
-                                          hintText: "Password",
+                                          labelText: "Password",
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.orange
+                                              )
+                                          ),
                                           suffixIcon: IconButton(
                                             icon: _showPassword
                                                 ? Icon(Icons.visibility_off)
@@ -139,7 +151,8 @@ class _LogInState extends State<LogIn> {
                                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                                 child: Text("sign in anonymously".toUpperCase()),
                               ),
-                              onPressed: (){signInAnon(context);},
+                              onPressed:
+                              signInWithAnon ? (){signInAnon(context);} : null,
                             ),
                           ),
                           SizedBox(
@@ -152,7 +165,7 @@ class _LogInState extends State<LogIn> {
                                 Container(
                                   child: Text("Don\'t have an account?"),
                                 ),
-                                FlatButton(onPressed: signUp, child: Text("Sign Up"))
+                                FlatButton(onPressed: goToSignUp, child: Text("Sign Up"))
                               ],
                             ),
                           )
@@ -193,7 +206,7 @@ class _LogInState extends State<LogIn> {
     }
   }
 
-  void signUp() {
+  void goToSignUp() {
     print("User wants to sign up");
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
   }

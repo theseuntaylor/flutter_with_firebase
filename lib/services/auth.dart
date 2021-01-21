@@ -27,35 +27,17 @@ class AuthServices {
     return null;
   }
 
-  var newUserCreated;
-
-  Future signUpWithEmailAndPassword(User newUser, String password) async{
-    try{
-      var result = await _auth.createUserWithEmailAndPassword(email: newUser.email, password: password);
-      if (result != null){
-        newUserCreated = await _auth.currentUser();
-        try {
-          newUserCreated.sendEmailVerification();
-        } catch (e) {
-          print(e);
-        }
-        saveNewUser(newUser);
-      }
-    } catch (e){
-      print(e.toString());
-    }
-  }
-
-  void saveNewUser(User newUser) async {
-    final _newUserFireStore = Firestore.instance;
-
-    _newUserFireStore.collection("Users").document(newUserCreated.uid).setData({
-      'FirstName': newUser.firstName,
-      'LastName': newUser.lastName,
-      'PhoneNumber': newUser.phoneNumber,
-      'Email': newUser.email
-    });
-    return ;
-  }
+  // void saveNewUser(User newUser) async {
+  //   final _newUserFireStore = Firestore.instance;
+  //
+  //   _newUserFireStore.collection("Users").document(newUserCreated.uid).setData({
+  //     'FirstName': newUser.firstName,
+  //     'LastName': newUser.lastName,
+  //     'PhoneNumber': newUser.phoneNumber,
+  //     'Email': newUser.email,
+  //     'DisplayName': newUser.firstName
+  //   });
+  //   return ;
+  // }
 
 }
